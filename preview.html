@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>
+            Image Preview
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+    <script type="text/javascript">
+        window.onload = function() {
+            var variable = window.variable,
+                obj = JSON.parse(variable),
+                canvas = document.getElementById("canvas"),
+                context = canvas.getContext("2d"),
+                img = new Image();
+
+            img.src = obj.img;
+            img.onload = function() {
+                var originWidth = img.width,
+                    originHeight = img.height,
+                    cropWidth = +obj.cropWidth,
+                    cropHeight = +obj.cropHeight;
+
+                canvas.width = originWidth;
+                canvas.height = originHeight;
+                context.drawImage(img, 0, 0);
+
+                context.strokeStyle = "blue";
+                context.beginPath();
+
+                for(var w = 0; w < originWidth; w+=cropWidth) {
+                    context.moveTo(w, 0);
+                    context.lineTo(w, originHeight);
+                    console.log(w);
+                }
+
+                for (var h = 0; h < originHeight; h+=cropHeight) {
+                    context.moveTo(0, h);
+                    context.lineTo(originWidth, h);
+                    console.log(h);
+                }
+
+                context.stroke();
+                context.closePath();
+            }
+        }
+    </script>
+</html>

@@ -8,8 +8,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="components/bootstrap/css/bootstrap.css" rel="stylesheet">
-        <!-- <link href="style.css" rel="stylesheet"> -->
         <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="components/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="components/bootstrap/js/jqBootstrapValidation.js"></script>
+        <script type="text/javascript" src="components/bootstrap/js/bootbox.min.js"></script>
         <script type="text/javascript" src="main.js"></script>
     </head>
     
@@ -21,19 +23,25 @@
         	
             <form class="form-horizontal">
             	<div class="control-group">
-            		<label class="control-label" for="inputFile">
-                        裁减尺寸
+            		<label class="control-label" for="inputWidth">
+                        裁减宽度
+                    </label>
+                    <div class="controls">
+                    	<div class="input-append">
+	                        <input type="number" id="inputWidth" class="input-mini" value="32" required>
+	                        <span class="add-on">px</span>
+	                    </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputHeight">
+                        裁减高度
                     </label>
                     <div class="controls controls-row">
-                    	<div class="input-append">
-	                        <input type="number" id="inputWidth" class="input-mini" placeholder="width..." required>
-	                        <span class="add-on">px</span>
-	                    </div>
-                  
-                    	<div class="input-append">
-	                        <input type="number" id="inputHeight" class="input-mini" placeholder="height..." required>
-	                        <span class="add-on">px</span>
-	                    </div>
+                        <div class="input-append">
+                            <input type="number" id="inputHeight" class="input-mini" value="32" required>
+                            <span class="add-on">px</span>
+                        </div>
                     </div>
                 </div>
                 <div class="control-group">
@@ -41,7 +49,7 @@
                         图片路径
                     </label>
                     <div class="controls">
-                        <input id="inputFile" type="text" class="input-xlarge" required value="/Users/xiaochengao/github/ImageCropper/test/fight.png">
+                        <input id="inputFile" type="text" class="input-xlarge" required>
                     </div>
                 </div>
                 <div class="control-group">
@@ -49,15 +57,15 @@
                         保存目录
                     </label>
                     <div class="controls">
-                        <input id="outputPath" type="text" class="input-xlarge" required value="/Users/xiaochengao/github/ImageCropper/test/output">
+                        <input id="outputPath" type="text" class="input-xlarge" required>
                     </div>
                 </div>
                 <div class="form-actions">
 				    <button type="button" id="submit" class="btn btn-primary"><i class="icon-play-circle icon-white"></i>
 				    	生成
 				    </button>
-				    <button type="reset" class="btn">
-				    	重置
+				    <button type="button" id="preview" class="btn">
+				    	预览
 				    </button>
 			    </div>
             </form>
