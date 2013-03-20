@@ -13,6 +13,15 @@
         <script type="text/javascript" src="components/bootstrap/js/jqBootstrapValidation.js"></script>
         <script type="text/javascript" src="components/bootstrap/js/bootbox.min.js"></script>
         <script type="text/javascript" src="main.js"></script>
+        <<style type="text/css" media="screen">
+            #loading {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-left: -64px;
+                margin-top: -64px;
+            }
+        </style>
     </head>
     
     <body>
@@ -61,7 +70,7 @@
                     </div>
                 </div>
                 <div class="form-actions">
-				    <button type="button" id="submit" class="btn btn-primary"><i class="icon-play-circle icon-white"></i>
+				    <button type="submit" id="submit" class="btn btn-primary"><i class="icon-play-circle icon-white"></i>
 				    	生成
 				    </button>
 				    <button type="button" id="preview" class="btn">
@@ -69,6 +78,8 @@
 				    </button>
 			    </div>
             </form>
+
+            <img id="loading" src="loading.gif" />
         </div>
     </body>
 

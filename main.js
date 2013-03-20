@@ -24,59 +24,54 @@ $(document).ready(function() {
 
 			if (!fs.existsSync(filePath)) {
 				bootbox.alert("输入文件不存在");
-				return;
-			}
-
-			if (!/^.png|.jpg$/.test(path.extname(filePath).toLowerCase())) {
+			} else if (!/^.png|.jpg$/.test(path.extname(filePath).toLowerCase())) {
 				bootbox.alert("请输入png或者jpg格式图片");
-				return;
-			}
+			} else {
 
-			mkdirSync(destFolder);
+				mkdirSync(destFolder);
 
-			easyimg.info(filePath, function(err, stdout, stderr) {
-				if (err) {
-					bootbox.alert("未知的文件格式");
-					return;
-				}
-				console.log(stdout);
-				var originWidth = stdout.width,
-					originHeight = stdout.height,
-					row = Math.ceil(originHeight / cropHeight),
-					col = Math.ceil(originWidth / cropWidth),
-					i = 0,
-					cbArray = [];
-
-				for (var h = 0; h < originHeight; h += cropHeight) {
-					for (var w = 0; w < originWidth; w += cropWidth) {
-						cbArray.push((function(offsetX, offsetY, index) {
-							return function(callback) {
-								easyimg.crop({
-									src: filePath,
-									dst: path.resolve(destFolder, index + fileName),
-									cropwidth: cropWidth,
-									cropheight: cropHeight,
-									x: offsetX,
-									y: offsetY,
-									quality: 100,
-									gravity: "NorthWest"
-								}, function(err, image) {
-									callback(err, image);
-								});
-							};
-						})(w, h, i++));
-					}
-				}
-
-				async.series(cbArray, function(err, results) {
+				easyimg.info(filePath, function(err, stdout, stderr) {
 					if (err) {
-						bootbox.alert(err);
+						bootbox.alert("未知的文件格式");
 					} else {
-						bootbox.alert("生成成功！");
+						var originWidth = stdout.width,
+							originHeight = stdout.height,
+							row = Math.ceil(originHeight / cropHeight),
+							col = Math.ceil(originWidth / cropWidth),
+							i = 0,
+							cbArray = [];
+
+						for (var h = 0; h < originHeight; h += cropHeight) {
+							for (var w = 0; w < originWidth; w += cropWidth) {
+								cbArray.push((function(offsetX, offsetY, index) {
+									return function(callback) {
+										easyimg.crop({
+											src: filePath,
+											dst: path.resolve(destFolder, index + fileName),
+											cropwidth: cropWidth,
+											cropheight: cropHeight,
+											x: offsetX,
+											y: offsetY,
+											quality: 100,
+											gravity: "NorthWest"
+										}, function(err, image) {
+											callback(err, image);
+										});
+									};
+								})(w, h, i++));
+							}
+						}
+
+						async.series(cbArray, function(err, results) {
+							if (err) {
+								bootbox.alert(err);
+							} else {
+								bootbox.alert("生成成功！");
+							}
+						});
 					}
 				});
-
-			});
+			}
 
 			event.preventDefault();
 		},
