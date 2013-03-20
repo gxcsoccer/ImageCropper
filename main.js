@@ -7,7 +7,8 @@ $(document).ready(function() {
 	var $inputFile = $("#inputFile"),
 		$outputPath = $("#outputPath"),
 		$inputWidth = $("#inputWidth"),
-		$inputHeight = $("#inputHeight");
+		$inputHeight = $("#inputHeight"),
+		$loading = $("#loading").hide();
 
 	$("input,textarea,select").jqBootstrapValidation({
 		preventSubmit: true,
@@ -41,6 +42,7 @@ $(document).ready(function() {
 							i = 0,
 							cbArray = [];
 
+						$loading.show();
 						for (var h = 0; h < originHeight; h += cropHeight) {
 							for (var w = 0; w < originWidth; w += cropWidth) {
 								cbArray.push((function(offsetX, offsetY, index) {
@@ -63,6 +65,7 @@ $(document).ready(function() {
 						}
 
 						async.series(cbArray, function(err, results) {
+							$loading.hide();
 							if (err) {
 								bootbox.alert(err);
 							} else {
